@@ -1,7 +1,7 @@
 version: "3.9"
 services:
  airsoft-api-service:
-  image: jessegabriels/python-db-test
+  image: jessegabriels/api-project2
   ports:
     - "8000:8000"
   volumes:
