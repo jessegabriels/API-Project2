@@ -5,15 +5,15 @@ import schemas
 
 
 def get_wclass(db: Session, wclass_id: int):
-    return db.query(models.Wclass).filter(models.Wclass.id == wclass_id).first()
+    return db.query(models.Wclass).filter(models.Wclass.class_id == wclass_id).first()
 
 
 def get_gamemode(db: Session, gamemode_id: int):
-    return db.query(models.Gamemodes).filter(models.Gamemodes.id == gamemode_id).first()
+    return db.query(models.Gamemodes).filter(models.Gamemodes.gamemode_id == gamemode_id).first()
 
 
 def get_location(db: Session, location_id: int):
-    return db.query(models.Location).filter(models.Location.id == location_id).first()
+    return db.query(models.Location).filter(models.Location.location_id == location_id).first()
 
 
 def get_locaiton_by_zip(db: Session, zip: int):
@@ -33,7 +33,7 @@ def get_locations(db: Session, skip: int = 0, limit: int = 100):
 
 
 def create_location(db: Session, location: schemas.LocationCreate):
-    db_location = models.Location(name=location.name, zip=location.zip, city=location.city)
+    db_location = models.Location(location_name=location.name, zip=location.zip, city=location.city)
     db.add(db_location)
     db.commit()
     db.refresh(db_location)
@@ -41,7 +41,7 @@ def create_location(db: Session, location: schemas.LocationCreate):
 
 
 def create_wclass(db: Session, wclass: schemas.WclassCreate):
-    db_wclass = models.Location(name=wclass.name)
+    db_wclass = models.Wclass(class_name=wclass.name)
     db.add(db_wclass)
     db.commit()
     db.refresh(db_wclass)
@@ -49,7 +49,7 @@ def create_wclass(db: Session, wclass: schemas.WclassCreate):
 
 
 def create_gamemode(db: Session, gamemode: schemas.GamemodeCreate):
-    db_gamemode = models.Location(name=gamemode.name)
+    db_gamemode = models.Gamemodes(gamemode_name=gamemode.gamemode_name)
     db.add(db_gamemode)
     db.commit()
     db.refresh(db_gamemode)

@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 
 class WclassBase(BaseModel):
-    name: str
+    class_name: str
 
 
 class WclassCreate(WclassBase):
@@ -10,29 +10,29 @@ class WclassCreate(WclassBase):
 
 
 class Wclass(WclassBase):
-    id: int
+    class_id: int
 
     class Config:
         orm_mode = True
 
 
 class GamemodeBase(BaseModel):
-    name: str
+    gamemode_name: str
 
 
 class GamemodeCreate(GamemodeBase):
-    name: str
+    pass
 
 
 class Gamemodes(GamemodeBase):
-    id: int
+    gamemode_id: int
 
     class Config:
         orm_mode = True
 
 
 class LocationBase(BaseModel):
-    name: str
+    location_name: str
     zip: int
     city: str
 
@@ -42,9 +42,7 @@ class LocationCreate(LocationBase):
 
 
 class Location(LocationBase):
-    id: int
-    zip: int
-    city: str
+    location_id: int
 
     class Config:
         orm_mode = True
