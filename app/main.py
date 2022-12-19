@@ -35,7 +35,7 @@ origins = [
     "https://localhost.tiangolo.com",
     "http://127.0.0.1:5500",
     "http://localhost:63342",
-    "https://jessegabriels.github.io"
+    "https://jessegabriels.github.io/"
 ]
 
 project.add_middleware(
