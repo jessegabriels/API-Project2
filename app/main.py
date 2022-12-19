@@ -39,14 +39,13 @@ origins = [
     "https://project-service-jessegabriels.cloud.okteto.net",
     "https://airsoft-api-service-jessegabriels.cloud.okteto.net/locations/",
     "https://jessegabriels.github.io/API-Project2-Front/",
-    "https://airsoft-api-service-jessegabriels.cloud.okteto.net"
-
-
+    "https://airsoft-api-service-jessegabriels.cloud.okteto.net",
+    "https://jessegabriels.github.io"
 ]
 
 project.add_middleware(
     CORSMiddleware,
-    allow_origins=[origins],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
