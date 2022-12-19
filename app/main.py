@@ -7,6 +7,8 @@ import schemas
 from databse import SessionLocal, engine
 import os
 
+from fastapi.middleware.cors import CORSMiddleware
+
 if not os.path.exists('.\sqlitedb'):
     os.makedirs('.\sqlitedb')
 
@@ -14,6 +16,8 @@ if not os.path.exists('.\sqlitedb'):
 models.Base.metadata.create_all(bind=engine)
 
 project = FastAPI()
+
+#link naar okteto: https://airsoft-api-service-jessegabriels.cloud.okteto.net
 
 
 # Dependency
@@ -23,6 +27,25 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+origins = [
+    "http://localhost",
+    "http://localhost:8080",
+    "https://localhost.tiangolo.com",
+    "http://127.0.0.1:5500",
+    "http://localhost:63342",
+    "https://jessegabriels.github.io"
+
+]
+
+project.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 #@app.post("/users/", response_model=schemas.User)
