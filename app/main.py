@@ -37,7 +37,8 @@ origins = [
     "http://localhost:63342",
     "https://jessegabriels.github.io",
     "https://project-service-jessegabriels.cloud.okteto.net",
-    "https://airsoft-api-service-jessegabriels.cloud.okteto.net/locations/"
+    "https://airsoft-api-service-jessegabriels.cloud.okteto.net/locations/",
+    "https://jessegabriels.github.io/API-Project2-Front/"
 
 
 ]
