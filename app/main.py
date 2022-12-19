@@ -35,13 +35,16 @@ origins = [
     "https://localhost.tiangolo.com",
     "http://127.0.0.1:5500",
     "http://localhost:63342",
-    "https://jessegabriels.github.io"
+    "https://jessegabriels.github.io",
+    "https://project-service-jessegabriels.cloud.okteto.net",
+    "https://airsoft-api-service-jessegabriels.cloud.okteto.net/locations/"
+
 
 ]
 
 project.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[origins],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
