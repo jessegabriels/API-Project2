@@ -29,28 +29,28 @@ def get_db():
         db.close()
 
 
-origins = [
-    "http://localhost",
-    "http://localhost:8080",
-    "https://localhost.tiangolo.com",
-    "http://127.0.0.1:5500",
-    "http://localhost:63342",
-    "https://jessegabriels.github.io",
-    "https://project-service-jessegabriels.cloud.okteto.net",
-    "https://airsoft-api-service-jessegabriels.cloud.okteto.net/locations/",
-    "https://jessegabriels.github.io/API-Project2-Front/",
-    "https://airsoft-api-service-jessegabriels.cloud.okteto.net",
-    "https://jessegabriels.github.io",
-    "http://localhost:63343"
-]
+#origins = [
+#    "http://localhost",
+#    "http://localhost:8080",
+#    "https://localhost.tiangolo.com",
+#    "http://127.0.0.1:5500",
+#    "http://localhost:63342",
+#    "https://jessegabriels.github.io",
+#    "https://project-service-jessegabriels.cloud.okteto.net",
+#    "https://airsoft-api-service-jessegabriels.cloud.okteto.net/locations/",
+#    "https://jessegabriels.github.io/API-Project2-Front/",
+#    "https://airsoft-api-service-jessegabriels.cloud.okteto.net",
+#    "https://jessegabriels.github.io",
+#    "http://localhost:63343",
+#]
 
-project.add_middleware(
-    CORSMiddleware,
-    allow_origins=[origins],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+#project.add_middleware(
+#    CORSMiddleware,
+#    allow_origins=[origins],
+#    allow_credentials=True,
+#    allow_methods=["*"],
+#    allow_headers=["*"],
+#)
 
 
 #@app.post("/users/", response_model=schemas.User)
@@ -59,10 +59,6 @@ project.add_middleware(
 #    if db_user:
 #        raise HTTPException(status_code=400, detail="Email already registered")
 #    return crud.create_user(db=db, user=user)
-
-@project.get("/")
-async def main():
-    return {"message": "Hello World!"}
 
 
 @project.get("/gamemodes/", response_model=list[schemas.Gamemodes])
