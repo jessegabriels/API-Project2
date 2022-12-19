@@ -59,6 +59,10 @@ project.add_middleware(
 #        raise HTTPException(status_code=400, detail="Email already registered")
 #    return crud.create_user(db=db, user=user)
 
+@project.get("/")
+async def main():
+    return {"message": "Hello World!"}
+
 
 @project.get("/gamemodes/", response_model=list[schemas.Gamemodes])
 def read_gamemodes(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
