@@ -19,7 +19,6 @@ project = FastAPI()
 
 #link naar okteto: https://airsoft-api-service-jessegabriels.cloud.okteto.net
 
-
 # Dependency
 def get_db():
     db = SessionLocal()
@@ -35,7 +34,7 @@ origins = [
     "https://localhost.tiangolo.com",
     "http://127.0.0.1:5500",
     "http://localhost:63342",
-    "https://jessegabriels.github.io/",
+    "https://jessegabriels.github.io/*",
     "https://jessegabriels.github.io/API-Project2-Front/*",
     "https://jessegabriels.github.io/API-Project2-Front/index.html"
 ]
@@ -47,7 +46,6 @@ project.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"]
 )
-
 
 #@app.post("/users/", response_model=schemas.User)
 #def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
