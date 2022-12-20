@@ -33,10 +33,9 @@ origins = [
     "http://localhost:8080",
     "https://localhost.tiangolo.com",
     "http://127.0.0.1:5500",
-    "http://localhost:63342",
-    "https://jessegabriels.github.io/*",
-    "https://jessegabriels.github.io/API-Project2-Front/*",
-    "https://jessegabriels.github.io/API-Project2-Front/index.html"
+    "https://jessegabriels.github.io/*"
+    #"https://jessegabriels.github.io/API-Project2-Front/*",
+    #"https://jessegabriels.github.io/API-Project2-Front/index.html"
 ]
 
 project.add_middleware(
