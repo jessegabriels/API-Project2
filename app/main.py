@@ -12,14 +12,16 @@ from fastapi.middleware.cors import CORSMiddleware
 if not os.path.exists('.\sqlitedb'):
     os.makedirs('.\sqlitedb')
 
-#"sqlite:///./sqlitedb/sqlitedata.db"
+# "sqlite:///./sqlitedb/sqlitedata.db"
 models.Base.metadata.create_all(bind=engine)
 
 project = FastAPI()
 
-#link naar okteto: https://airsoft-api-service-jessegabriels.cloud.okteto.net
+# link naar okteto: https://airsoft-api-service-jessegabriels.cloud.okteto.net
 
 # Dependency
+
+
 def get_db():
     db = SessionLocal()
     try:
@@ -33,7 +35,7 @@ origins = [
     "http://localhost:8080",
     "https://localhost.tiangolo.com",
     "http://127.0.0.1:5500",
-    "https://jessegabriels.github.io/*",
+    "https://jessegabriels.github.io",
     "https://jessegabriels.github.io/API-Project2-Front/*",
     "https://jessegabriels.github.io/API-Project2-Front/index.html"
 ]
@@ -46,8 +48,8 @@ project.add_middleware(
     allow_headers=["*"]
 )
 
-#@app.post("/users/", response_model=schemas.User)
-#def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+# @app.post("/users/", response_model=schemas.User)
+# def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 #    db_user = crud.get_user_by_email(db, email=user.email)
 #    if db_user:
 #        raise HTTPException(status_code=400, detail="Email already registered")
