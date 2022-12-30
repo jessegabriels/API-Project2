@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 
 import models
 import schemas
+import auth
 
 
 def get_wclass(db: Session, wclass_id: int):
@@ -33,7 +34,8 @@ def get_locations(db: Session, skip: int = 0, limit: int = 100):
 
 
 def create_location(db: Session, location: schemas.LocationCreate):
-    db_location = models.Location(location_name=location.name, zip=location.zip, city=location.city)
+    hashed_location = auth.get_location_hash(location.location_name)
+    db_location = models.Location(location_name=hashed_location, zip=location.zip, city=location.city)
     db.add(db_location)
     db.commit()
     db.refresh(db_location)
@@ -41,7 +43,7 @@ def create_location(db: Session, location: schemas.LocationCreate):
 
 
 def create_wclass(db: Session, wclass: schemas.WclassCreate):
-    db_wclass = models.Wclass(class_name=wclass.name)
+    db_wclass = models.Wclass(class_name=wclass.class_name)
     db.add(db_wclass)
     db.commit()
     db.refresh(db_wclass)
