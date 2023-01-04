@@ -55,28 +55,19 @@ project.add_middleware(
 #        raise HTTPException(status_code=400, detail="Email already registered")
 #    return crud.create_user(db=db, user=user)
 
+
 @project.get("/gamemodes/", response_model=list[schemas.Gamemodes])
 def read_gamemodes(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     gamemodes = crud_operations.get_gamemodes(db, skip=skip, limit=limit)
     return gamemodes
 
 
-
-#@project.get("/gamemodes/{gamemode_id}", response_model=schemas.Gamemodes)
-#def read_gamemode(gamemode_id: int, db: Session = Depends(get_db)):
-#    db_gamemode = crud_operations.get_gamemode(db, gamemode_id=gamemode_id)
-    #if db_gamemode is None:
-    #    raise HTTPException(status_code=404, detail="Gamemode not found")
-    #return db_gamemode
-
-
 @project.get("/gamemodes/{gamemode_id}", response_model=schemas.Gamemodes)
 def read_gamemode(gamemode_id: int, db: Session = Depends(get_db)):
     db_gamemode = crud_operations.get_gamemode(db, gamemode_id=gamemode_id)
-    #if db_gamemode is None:
-       # raise HTTPException(status_code=404, detail="Gamemode not found")
+    if db_gamemode is None:
+        raise HTTPException(status_code=404, detail="Gamemode not found")
     return {"name": db_gamemode.gamemode_name, "id": db_gamemode.gamemode_id}
-
 
 
 @project.get("/classes/", response_model=list[schemas.Wclass])
@@ -120,6 +111,31 @@ def delete_gamemode(gamemode_id: int):
         return {"Done": True}
 
 
+@project.delete("/classes/{class_id}/")
+def delete_class(class_id: int):
+    with Session(engine) as session:
+        wclass = session.get(models.Wclass, class_id)
+        if not wclass:
+            raise HTTPException(status_code=404, detail="Class not found")
+        session.delete(wclass)
+        session.commit()
+        return {"Done": True}
+
+
+@project.put("/classes/{class_id}")
+def update_class(class_id: int, class_name: str):
+    session = Session(bind=engine, expire_on_commit=False)
+    wclass = session.query(models.Wclass).get(class_id)
+    if wclass:
+        wclass.class_name = class_name
+        session.commit()
+    session.close()
+    if not wclass:
+        raise HTTPException(status_code=404, detail=f"class with id {class_id} not found")
+
+    return wclass
+
+
 #PUT endpoint to update an existing gamemode
 @project.put('/gamemodes/{gamemode_id}', response_model=schemas.Gamemodes)
 def update_gamemode(gamemode_id: int, gamemode_name: str):
@@ -130,7 +146,7 @@ def update_gamemode(gamemode_id: int, gamemode_name: str):
         session.commit()
     session.close()
     if not gamemode:
-        raise HTTPException(status_code=404, detail=f"driver with id {gamemode_id} not found")
+        raise HTTPException(status_code=404, detail=f"gamemode with id {gamemode_id} not found")
 
     return gamemode
 

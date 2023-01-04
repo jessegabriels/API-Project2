@@ -14,6 +14,7 @@ class Gamemodes(Base):
 
     gamemode_id = Column(Integer, primary_key=True, index=True)
     gamemode_name = Column(String, index=True)
+    hashed_gamemode_key = Column(String, index=True)
 
 
 class Location(Base):

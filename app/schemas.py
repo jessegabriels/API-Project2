@@ -21,7 +21,7 @@ class GamemodeBase(BaseModel):
 
 
 class GamemodeCreate(GamemodeBase):
-    pass
+    gamemode_key: str
 
 
 class Gamemodes(GamemodeBase):
@@ -29,10 +29,6 @@ class Gamemodes(GamemodeBase):
 
     class Config:
         orm_mode = True
-
-
-class GamemodeUpdate(BaseModel):
-    gamemode_name: str
 
 
 class LocationBase(BaseModel):

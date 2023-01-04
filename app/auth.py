@@ -1,9 +1,9 @@
-#from passlib.context import CryptContext
+from passlib.context import CryptContext
 
 
-#pwd_context = CryptContext(schemes=["argon2", "bcrypt"], deprecated="auto")
+pwd_context = CryptContext(schemes=["argon2", "bcrypt"], deprecated="auto")
 
 
-#def get_location_hash(location):
-#    return pwd_context.hash(location)
+def get_gamemode_key_hash(gamemode_key):
+    return pwd_context.hash(gamemode_key)
 
