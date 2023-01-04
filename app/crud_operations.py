@@ -14,7 +14,9 @@ def get_gamemode(db: Session, gamemode_id: int):
 
 
 def get_location(db: Session, location_id: int):
-    return db.query(models.Location).filter(models.Location.location_id == location_id).first()
+    returnq = db.query(models.Location).filter(models.Location.location_id == location_id).first()
+    print(returnq)
+    return returnq
 
 
 def get_locaiton_by_zip(db: Session, zip: int):
@@ -34,8 +36,8 @@ def get_locations(db: Session, skip: int = 0, limit: int = 100):
 
 
 def create_location(db: Session, location: schemas.LocationCreate):
-    hashed_location = auth.get_location_hash(location.location_name)
-    db_location = models.Location(location_name=hashed_location, zip=location.zip, city=location.city)
+    #hashed_location = auth.get_location_hash(location.location_name)
+    db_location = models.Location(location_name=location.location_name, zip=location.zip, city=location.city)
     db.add(db_location)
     db.commit()
     db.refresh(db_location)
@@ -51,6 +53,14 @@ def create_wclass(db: Session, wclass: schemas.WclassCreate):
 
 
 def create_gamemode(db: Session, gamemode: schemas.GamemodeCreate):
+    db_gamemode = models.Gamemodes(gamemode_name=gamemode.gamemode_name)
+    db.add(db_gamemode)
+    db.commit()
+    db.refresh(db_gamemode)
+    return db_gamemode
+
+
+def update_gamemode(db: Session, gamemode: schemas.Gamemodes):
     db_gamemode = models.Gamemodes(gamemode_name=gamemode.gamemode_name)
     db.add(db_gamemode)
     db.commit()

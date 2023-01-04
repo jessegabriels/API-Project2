@@ -55,19 +55,28 @@ project.add_middleware(
 #        raise HTTPException(status_code=400, detail="Email already registered")
 #    return crud.create_user(db=db, user=user)
 
-
 @project.get("/gamemodes/", response_model=list[schemas.Gamemodes])
 def read_gamemodes(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     gamemodes = crud_operations.get_gamemodes(db, skip=skip, limit=limit)
     return gamemodes
 
 
+
+#@project.get("/gamemodes/{gamemode_id}", response_model=schemas.Gamemodes)
+#def read_gamemode(gamemode_id: int, db: Session = Depends(get_db)):
+#    db_gamemode = crud_operations.get_gamemode(db, gamemode_id=gamemode_id)
+    #if db_gamemode is None:
+    #    raise HTTPException(status_code=404, detail="Gamemode not found")
+    #return db_gamemode
+
+
 @project.get("/gamemodes/{gamemode_id}", response_model=schemas.Gamemodes)
 def read_gamemode(gamemode_id: int, db: Session = Depends(get_db)):
     db_gamemode = crud_operations.get_gamemode(db, gamemode_id=gamemode_id)
-    if db_gamemode is None:
-        raise HTTPException(status_code=404, detail="Gamemode not found")
-    return db_gamemode
+    #if db_gamemode is None:
+       # raise HTTPException(status_code=404, detail="Gamemode not found")
+    return {"name": db_gamemode.gamemode_name, "id": db_gamemode.gamemode_id}
+
 
 
 @project.get("/classes/", response_model=list[schemas.Wclass])
@@ -82,14 +91,58 @@ def read_locations(skip: int = 0, limit: int = 100, db: Session = Depends(get_db
     return locations
 
 
-#@project.post("/location/{user_id}/items/", response_model=schemas.Location)
-#def create_item_for_user(
-#    location_id: int, item: schemas.LocationCreate, db: Session = Depends(get_db)
-#):
-#    return crud_operations.create_location(db=db, location_name=location_name, zip=zip, city=city)
+@project.post("/gamemodes/", response_model=schemas.Gamemodes)
+def create_gamemode(gamemode_name: schemas.GamemodeCreate, db: Session = Depends(get_db)):
+    new_gamemode = crud_operations.create_gamemode(db=db, gamemode=gamemode_name)
+    return new_gamemode
 
 
-#@app.get("/items/", response_model=list[schemas.Item])
-#def read_items(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-#    items = crud.get_items(db, skip=skip, limit=limit)
-#    return items
+@project.post("/classes/", response_model=schemas.Wclass)
+def create_class(class_name: schemas.WclassCreate, db: Session = Depends(get_db)):
+    new_class = crud_operations.create_wclass(db=db, wclass=class_name)
+    return new_class
+
+
+@project.post("/locations/", response_model=schemas.Location)
+def create_location(location_name: schemas.LocationCreate, db: Session = Depends(get_db)):
+    new_location = crud_operations.create_location(db=db, location=location_name)
+    return new_location
+
+
+@project.delete("/gamemodes/{gamemode_id}/")
+def delete_gamemode(gamemode_id: int):
+    with Session(engine) as session:
+        gamemode = session.get(models.Gamemodes, gamemode_id)
+        if not gamemode:
+            raise HTTPException(status_code=404, detail="Gamemode not found")
+        session.delete(gamemode)
+        session.commit()
+        return {"Done": True}
+
+
+#PUT endpoint to update an existing gamemode
+@project.put('/gamemodes/{gamemode_id}', response_model=schemas.Gamemodes)
+def update_gamemode(gamemode_id: int, gamemode_name: str):
+    session = Session(bind=engine, expire_on_commit=False)
+    gamemode = session.query(models.Gamemodes).get(gamemode_id)
+    if gamemode:
+        gamemode.gamemode_name = gamemode_name
+        session.commit()
+    session.close()
+    if not gamemode:
+        raise HTTPException(status_code=404, detail=f"driver with id {gamemode_id} not found")
+
+    return gamemode
+
+
+
+
+
+
+
+
+
+
+
+
+

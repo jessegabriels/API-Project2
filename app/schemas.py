@@ -31,6 +31,10 @@ class Gamemodes(GamemodeBase):
         orm_mode = True
 
 
+class GamemodeUpdate(BaseModel):
+    gamemode_name: str
+
+
 class LocationBase(BaseModel):
     location_name: str
     zip: int
