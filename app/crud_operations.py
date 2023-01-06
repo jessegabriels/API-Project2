@@ -39,7 +39,13 @@ def get_random_location(db: Session):
 
 
 def get_gamemodes(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Gamemodes).offset(skip).limit(limit).all()
+    gamemodeList = []
+    all_gamemodes = db.query(models.Gamemodes).offset(skip).limit(limit).all()
+    for game in all_gamemodes:
+        gamemodeList.append(game)
+
+    print(gamemodeList)
+    return gamemodeList
 
 
 def get_wclasses(db: Session, skip: int = 0, limit: int = 30):
