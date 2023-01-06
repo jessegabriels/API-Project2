@@ -56,6 +56,24 @@ project.add_middleware(
 #    return crud.create_user(db=db, user=user)
 
 
+@project.get("/gamemode/", response_model=schemas.Gamemodes)
+def read_gamemode(db: Session = Depends(get_db)):
+    gamemode = crud_operations.get_random_gamemode(db)
+    return gamemode
+
+
+@project.get("/location/", response_model=schemas.Location)
+def read_location(db: Session = Depends(get_db)):
+    location = crud_operations.get_random_location(db)
+    return location
+
+
+@project.get("/class/", response_model=schemas.Wclass)
+def read_location(db: Session = Depends(get_db)):
+    wclass = crud_operations.get_random_class(db)
+    return wclass
+
+
 @project.get("/gamemodes/", response_model=list[schemas.Gamemodes])
 def read_gamemodes(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     gamemodes = crud_operations.get_gamemodes(db, skip=skip, limit=limit)
