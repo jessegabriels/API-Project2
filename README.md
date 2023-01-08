@@ -97,6 +97,7 @@ DELETE:
 
 # Okteto
 
+https://airsoft-api-service-jessegabriels.cloud.okteto.net/
 ![okteto](https://user-images.githubusercontent.com/81410142/211198033-c87c932c-0d32-459c-a1ef-3dc001a4e96d.png)
 
 # Netlify
