@@ -102,7 +102,9 @@ https://api-project2-jesse.netlify.app/
 ![front](https://user-images.githubusercontent.com/81410142/211198062-24edfa41-dd40-4cc5-8fae-e789fcad6919.png)
 
 
+# Tests
 
+![pytest](https://user-images.githubusercontent.com/81410142/211198230-abd9a060-3db2-4290-8358-96cbe9e60567.png)
 
 
 
