@@ -38,7 +38,8 @@ origins = [
     "https://jessegabriels.github.io",
     "https://jessegabriels.github.io/API-Project2-Front/*",
     "https://jessegabriels.github.io/API-Project2-Front/index.html",
-    "https://api-project2-jesse.netlify.app/"
+    "https://api-project2-jesse.netlify.app/",
+    "https://api-project2-jesse.netlify.app"
 ]
 
 project.add_middleware(
