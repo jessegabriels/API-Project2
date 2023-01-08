@@ -7,6 +7,8 @@ Het doel van deze API is om een gebruiker geen keuzenstress te geven. Het is ook
 
 Met deze API krijgt de gebruiker een speelveld toegewezen samen met een gamemode en een wapenuitrusting.
 
+Uitbreidingen: Frond-end met stijlgeving, front-end gehost op Netlify, pytest voor alle endpoints
+
 # GET endpoints
 
 1)  GET random gamemode
