@@ -18,9 +18,7 @@ def get_gamemode(db: Session, gamemode_id: int):
 
 def get_random_gamemode(db: Session):
     rows = db.query(models.Gamemodes).count()
-    print(rows)
     random_int = random.randrange(1, rows-1)
-    print(random_int)
     return db.query(models.Gamemodes).filter(models.Gamemodes.gamemode_id == random_int).first()
 
 
@@ -32,9 +30,7 @@ def get_location(db: Session, location_id: int):
 
 def get_random_location(db: Session):
     rows = db.query(models.Location).count()
-    print(rows)
     random_int = random.randrange(1, rows - 1)
-    print(random_int)
     return db.query(models.Location).filter(models.Location.location_id == random_int).first()
 
 
@@ -54,9 +50,7 @@ def get_wclasses(db: Session, skip: int = 0, limit: int = 30):
 
 def get_random_class(db: Session):
     rows = db.query(models.Wclass).count()
-    print(rows)
     random_int = random.randrange(1, rows - 1)
-    print(random_int)
     return db.query(models.Wclass).filter(models.Wclass.class_id == random_int).first()
 
 

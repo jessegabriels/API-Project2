@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 import crud_operations
 import models
 import schemas
-from databse import SessionLocal, engine
+from database import SessionLocal, engine
 import os
 
 from fastapi.middleware.cors import CORSMiddleware
@@ -48,13 +48,6 @@ project.add_middleware(
     allow_headers=["*"]
 )
 
-# @app.post("/users/", response_model=schemas.User)
-# def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
-#    db_user = crud.get_user_by_email(db, email=user.email)
-#    if db_user:
-#        raise HTTPException(status_code=400, detail="Email already registered")
-#    return crud.create_user(db=db, user=user)
-
 
 @project.get("/gamemode/", response_model=schemas.Gamemodes)
 def read_gamemode(db: Session = Depends(get_db)):
@@ -78,14 +71,6 @@ def read_location(db: Session = Depends(get_db)):
 def read_gamemodes(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     gamemodes = crud_operations.get_gamemodes(db, skip=skip, limit=limit)
     return gamemodes
-
-
-@project.get("/gamemodes/{gamemode_id}", response_model=schemas.Gamemodes)
-def read_gamemode(gamemode_id: int, db: Session = Depends(get_db)):
-    db_gamemode = crud_operations.get_gamemode(db, gamemode_id=gamemode_id)
-    if db_gamemode is None:
-        raise HTTPException(status_code=404, detail="Gamemode not found")
-    return {"name": db_gamemode.gamemode_name, "id": db_gamemode.gamemode_id}
 
 
 @project.get("/classes/", response_model=list[schemas.Wclass])
@@ -140,6 +125,17 @@ def delete_class(class_id: int):
         return {"Done": True}
 
 
+@project.delete("/locations/{location_id}/")
+def delete_class(location_id: int):
+    with Session(engine) as session:
+        loc = session.get(models.Location, location_id)
+        if not loc:
+            raise HTTPException(status_code=404, detail="Class not found")
+        session.delete(loc)
+        session.commit()
+        return {"Done": True}
+
+
 @project.put("/classes/{class_id}")
 def update_class(class_id: int, class_name: str):
     session = Session(bind=engine, expire_on_commit=False)
@@ -154,7 +150,6 @@ def update_class(class_id: int, class_name: str):
     return wclass
 
 
-#PUT endpoint to update an existing gamemode
 @project.put('/gamemodes/{gamemode_id}', response_model=schemas.Gamemodes)
 def update_gamemode(gamemode_id: int, gamemode_name: str):
     session = Session(bind=engine, expire_on_commit=False)
